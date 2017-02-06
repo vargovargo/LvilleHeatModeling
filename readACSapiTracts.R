@@ -72,6 +72,75 @@ getTractAgeSex <- function(state, county) {
       "tract"
     )
   
+   ACSpop <- melt(ACSpop, id = c("name", "state", "county", "tract"))
+  
+  ACSpop$gender <-
+    matrix(unlist(strsplit(as.character(ACSpop$variable), "_")), ncol = 2, byrow =
+             T)[, 1]
+  ACSpop$acsAge <-
+    matrix(unlist(strsplit(as.character(ACSpop$variable), "_")), ncol = 2, byrow =
+             T)[, 2]
+  
+  ITHIMageKey <-
+    c(
+      "ageClass1",
+      "ageClass2",
+      "ageClass2",
+      "ageClass3",
+      "ageClass3",
+      "ageClass3",
+      "ageClass3",
+      "ageClass3",
+      "ageClass3",
+      "ageClass4",
+      "ageClass4",
+      "ageClass4",
+      "ageClass5",
+      "ageClass5",
+      "ageClass5",
+      "ageClass6",
+      "ageClass6",
+      "ageClass6",
+      "ageClass6",
+      "ageClass7",
+      "ageClass7",
+      "ageClass8",
+      "ageClass8"
+    )
+  
+  names(ITHIMageKey) <- unique(ACSpop$acsAge)
+  ACSpop$ITHIMage <- ITHIMageKey[as.character(ACSpop$acsAge)]
+  
+  WONDERageKey <-
+    c(
+      "1-4 years",
+      "5-14 years",
+      "5-14 years",
+      "15-24 years",
+      "15-24 years",
+      "15-24 years",
+      "15-24 years",
+      "15-24 years",
+      "25-34 years",
+      "25-34 years",
+      "35-44 years",
+      "35-44 years",
+      "45-54 years",
+      "45-54 years",
+      "55-64 years",
+      "55-64 years",
+      "55-64 years",
+      "65-74 years",
+      "65-74 years",
+      "65-74 years",
+      "75-84 years",
+      "75-84 years",
+      "85+"
+    )
+  names(WONDERageKey) <- unique(ACSpop$acsAge)
+  ACSpop$WONDERage <- WONDERageKey[as.character(ACSpop$acsAge)]
+  
+  return(ACSpop)
 
   
   return(ACSpop)
