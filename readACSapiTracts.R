@@ -142,6 +142,4 @@ getTractAgeSex <- function(state, county) {
   
   return(ACSpop)
 
-  
-  return(ACSpop)
 }
