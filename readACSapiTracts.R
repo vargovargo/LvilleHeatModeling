@@ -143,3 +143,15 @@ getTractAgeSex <- function(state, county) {
   return(ACSpop)
 
 }
+
+Cnty <- getTractAgeSex(state = 55,county = 025) 
+
+library(plyr)
+
+cntyITHIMpop <- ddply(Cnty, .(state, county, tract, gender, ITHIMage), summarise,
+                         Population = sum(as.numeric(as.character(value)), na.rm=T)
+                         )
+
+cntyWONDERpop <- ddply(Cnty, .(state, county, tract, gender, WONDERage), summarise,
+                      Population = sum(as.numeric(as.character(value)), na.rm=T)
+)
