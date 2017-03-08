@@ -119,7 +119,7 @@ scenarios <- c("Base","Albedo","Combined","Green", "TreeLoss")
 HWdays <- c(59,53,50,54,61) 
 names(HWdays) <- scenarios
 
-# set beta
+# set beta from Medina-Ramon http://oem.bmj.com/content/64/12/827.short
 beta <- 0.0042908
 
 # HW increase from Anderson paper http://search.proquest.com/docview/853759302?pq-origsite=gscholar
