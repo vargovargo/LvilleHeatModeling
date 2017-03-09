@@ -115,9 +115,11 @@ pop <- pop %>% inner_join(DallasWonder, by=c("Age","Gender")) %>% inner_join(rea
 ##################################
 
 # list your parameters here and make sure you use them in the file names for the respective temperature data
-scenarios <- c("Base","Albedo","Combined","Green", "TreeLoss")
-HWdays <- c(59,53,50,54,61) 
+scenarios <- c("Base","Albedo","Combined","Green", "TreeLoss", "noUHI")
+HWdays <- c(59,53,50,54,61,49)  
 names(HWdays) <- scenarios
+
+noUHItemp <- 70.532
 
 # set beta from Medina-Ramon http://oem.bmj.com/content/64/12/827.short
 beta <- 0.0042908
