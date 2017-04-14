@@ -28,9 +28,8 @@ and you can plot monthly averages like this
 ```
 foo %>% group_by(SID, LATITUDE, LONGITUDE, month) %>% summarise(min= mean(minT, na.rm=T),max = mean(maxT, na.rm=T), avg = mean(meanT, na.rm=T)) %>%
   ggplot(.,aes(x=LONGITUDE, y=LATITUDE, color=max)) + geom_point() + facet_wrap(~month) + scale_colour_gradient(low = "blue", high = "red") 
-
-
 ```
+
  
 you can loop through all the years and save to Desktop with this
 ```  
