@@ -29,8 +29,8 @@ and you can plot monthly averages like this
 foo %>% group_by(SID, LATITUDE, LONGITUDE, month) %>% summarise(min= mean(minT, na.rm=T),max = mean(maxT, na.rm=T), avg = mean(meanT, na.rm=T)) %>%
   ggplot(.,aes(x=LONGITUDE, y=LATITUDE, color=max)) + geom_point() + facet_wrap(~month) + scale_colour_gradient(low = "blue", high = "red") 
 ```
+![alt text](https://github.com/vargovargo/LvilleHeatModeling/blob/master/Rplot.png "Example Monthly Plot")
 
- 
 you can loop through all the years and save to Desktop with this
 ```  
 urls <- c("https://portal.lternet.edu/nis/dataviewer?packageid=knb-lter-ntl.324.2&entityid=6ef6f0fe0b7d07a564d8985c4d2be677",
