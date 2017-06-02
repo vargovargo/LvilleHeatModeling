@@ -1,4 +1,5 @@
 library(jsonlite)
+library(tidyverse)
 
 getTractAgeSex <- function(state, county) {
   varString <-
@@ -7,7 +8,7 @@ getTractAgeSex <- function(state, county) {
   ACSpop <-
     as.data.frame(fromJSON(
       paste(
-        "http://api.census.gov/data/2015/acs5?get=NAME,",
+        "https://api.census.gov/data/2015/acs5?get=NAME,",
         varString,
         "&for=tract:*&in=state:",
         state,
@@ -18,6 +19,7 @@ getTractAgeSex <- function(state, county) {
       )
     ))
   ACSpop <- ACSpop[-1,]
+  
   colnames(ACSpop) <-
     c(
       "name",
@@ -72,14 +74,10 @@ getTractAgeSex <- function(state, county) {
       "tract"
     )
   
-   ACSpop <- melt(ACSpop, id = c("name", "state", "county", "tract"))
+  ACSpop <- ACSpop %>% gather(2:47,key = variable, value = value)
   
-  ACSpop$gender <-
-    matrix(unlist(strsplit(as.character(ACSpop$variable), "_")), ncol = 2, byrow =
-             T)[, 1]
-  ACSpop$acsAge <-
-    matrix(unlist(strsplit(as.character(ACSpop$variable), "_")), ncol = 2, byrow =
-             T)[, 2]
+  ACSpop$gender <-  matrix(unlist(strsplit(as.character(ACSpop$variable), "_")), ncol = 2, byrow =T)[, 1]
+  ACSpop$acsAge <-  matrix(unlist(strsplit(as.character(ACSpop$variable), "_")), ncol = 2, byrow =T)[, 2]
   
   ITHIMageKey <-
     c(
@@ -110,38 +108,9 @@ getTractAgeSex <- function(state, county) {
   
   names(ITHIMageKey) <- unique(ACSpop$acsAge)
   ACSpop$ITHIMage <- ITHIMageKey[as.character(ACSpop$acsAge)]
-  
-  WONDERageKey <-
-    c(
-      "1-4 years",
-      "5-14 years",
-      "5-14 years",
-      "15-24 years",
-      "15-24 years",
-      "15-24 years",
-      "15-24 years",
-      "15-24 years",
-      "25-34 years",
-      "25-34 years",
-      "35-44 years",
-      "35-44 years",
-      "45-54 years",
-      "45-54 years",
-      "55-64 years",
-      "55-64 years",
-      "55-64 years",
-      "65-74 years",
-      "65-74 years",
-      "65-74 years",
-      "75-84 years",
-      "75-84 years",
-      "85+"
-    )
-  names(WONDERageKey) <- unique(ACSpop$acsAge)
-  ACSpop$WONDERage <- WONDERageKey[as.character(ACSpop$acsAge)]
-  
-  return(ACSpop)
 
+  return(ACSpop)
+  
 }
 
 Cnty <- getTractAgeSex(state = 55,county = 025) 
